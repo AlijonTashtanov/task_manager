@@ -7,14 +7,14 @@ use App\Models\Task;
 
 /**
  * @OA\Info(
- *     title="Laravel Task API",
+ *     title="Laravel Task",
  *     version="1.0.0",
- *     description="This is a Task Management API built with Laravel."
+ *     description="Это API для управления задачами, построенное на Laravel."
  * )
  *
  * @OA\Tag(
  *     name="Tasks",
- *     description="Everything about tasks"
+ *     description="Всё о задачах"
  * )
  */
 class TaskController extends Controller
@@ -30,20 +30,19 @@ class TaskController extends Controller
      * @OA\Get(
      *     path="/api/tasks",
      *     tags={"Tasks"},
-     *     summary="Get all tasks",
+     *     summary="Получить все задачи",
      *     @OA\Parameter(
      *         name="search",
      *         in="query",
-     *         description="Search tasks by title",
+     *         description="Поиск задач по названию",
      *         required=false,
      *         @OA\Schema(type="string")
      *     ),
-     *     @OA\Response(response=200, description="List of tasks")
+     *     @OA\Response(response=200, description="Список задач")
      * )
      */
     public function index(Request $request)
     {
-        // dd("works");
         $tasks = $this->taskService->getAllTasks($request->search, $request->sort);
         return response()->json($tasks);
     }
@@ -52,15 +51,15 @@ class TaskController extends Controller
      * @OA\Get(
      *     path="/api/tasks/{id}",
      *     tags={"Tasks"},
-     *     summary="Get a single task by ID",
+     *     summary="Получить задачу по ID",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Task ID",
+     *         description="ID задачи",
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="Task details")
+     *     @OA\Response(response=200, description="Детали задачи")
      * )
      */
     public function show($id)
@@ -73,20 +72,20 @@ class TaskController extends Controller
      * @OA\Post(
      *     path="/api/tasks",
      *     tags={"Tasks"},
-     *     summary="Create a new task",
+     *     summary="Создать новую задачу",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *             required={"title", "due_date", "priority", "status", "category"},
-     *             @OA\Property(property="title", type="string", example="Learn Laravel"),
-     *             @OA\Property(property="description", type="string", example="Complete Laravel API tutorial"),
+     *             @OA\Property(property="title", type="string", example="Изучить Laravel"),
+     *             @OA\Property(property="description", type="string", example="Завершить учебник по API Laravel"),
      *             @OA\Property(property="due_date", type="string", format="date-time", example="2025-01-20T15:00:00"),
-     *             @OA\Property(property="priority", type="string", enum={"low", "medium", "high"}, example="high"),
-     *             @OA\Property(property="status", type="string", enum={"pending", "completed"}, example="pending"),
-     *             @OA\Property(property="category", type="string", example="Work")
+     *             @OA\Property(property="priority", type="string", enum={"низкий", "средний", "высокий"}, example="высокий"),
+     *             @OA\Property(property="status", type="string", enum={"в ожидании", "выполнено"}, example="в ожидании"),
+     *             @OA\Property(property="category", type="string", example="Работа")
      *         )
      *     ),
-     *     @OA\Response(response=201, description="Task created successfully")
+     *     @OA\Response(response=201, description="Задача успешно создана")
      * )
      */
     public function store(Request $request)
@@ -108,22 +107,22 @@ class TaskController extends Controller
      * @OA\Put(
      *     path="/api/tasks/{id}",
      *     tags={"Tasks"},
-     *     summary="Update an existing task",
+     *     summary="Обновить существующую задачу",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Task ID",
+     *         description="ID задачи",
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             @OA\Property(property="title", type="string", example="Updated Task"),
-     *             @OA\Property(property="status", type="string", enum={"pending", "completed"}, example="completed")
+     *             @OA\Property(property="title", type="string", example="Обновленная задача"),
+     *             @OA\Property(property="status", type="string", enum={"в ожидании", "выполнено"}, example="выполнено")
      *         )
      *     ),
-     *     @OA\Response(response=200, description="Task updated successfully")
+     *     @OA\Response(response=200, description="Задача успешно обновлена")
      * )
      */
     public function update(Request $request, $id)
@@ -145,15 +144,15 @@ class TaskController extends Controller
      * @OA\Delete(
      *     path="/api/tasks/{id}",
      *     tags={"Tasks"},
-     *     summary="Delete a task",
+     *     summary="Удалить задачу",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Task ID",
+     *         description="ID задачи",
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="Task deleted successfully")
+     *     @OA\Response(response=200, description="Задача успешно удалена")
      * )
      */
     public function destroy($id)

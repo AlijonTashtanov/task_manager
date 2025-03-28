@@ -15,7 +15,6 @@ class TaskService
             $query->where('title', 'like', "%{$search}%");
         }
     
-        // Whitelist valid columns and direction
         $validColumns = ['id', 'title', 'due_date', 'created_at', 'updated_at'];
         $sort = in_array($sort, $validColumns) ? $sort : 'due_date';
         $direction = in_array($direction, ['asc', 'desc']) ? $direction : 'asc';
