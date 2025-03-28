@@ -43,6 +43,7 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+        // dd("works");
         $tasks = $this->taskService->getAllTasks($request->search, $request->sort);
         return response()->json($tasks);
     }
